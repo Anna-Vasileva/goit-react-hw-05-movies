@@ -1,0 +1,39 @@
+import { useState, useEffect } from "react";
+import { getFilmsReviews } from "../../services/ServiceAPI";
+import PropTypes from "prop-types";
+import s from "./Reviews.module.css";
+
+const Reviews = ({ movieId }) => {
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    getFilmsReviews(movieId)
+      .then(({ data }) => {
+        if (data.results.length === 0) {
+          console.log("Ошибка: Reviews:results.results.length === 0");
+        }
+        setReviews(data.results);
+      })
+      .catch((error) => {
+        console.log("ошибка:Reviews");
+      });
+  }, [movieId]);
+
+  return (
+    <>
+      {reviews.length === 0 ? (
+        <p>We do not have any reviews for this movie.</p>
+      ) : (
+        <ul className={s["reviews-list"]}>
+          {reviews.map(({ author, content, id }) => (
+            <li key={id} className={s["reviews-item"]}>
+              <h3>Author: {author}</h3>
+              <p>{content}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+};
+Reviews.propTypes = { movieId: PropTypes.string.isRequired };
+export default Reviews;
