@@ -7,3 +7,8 @@
   border: 1px solid var(--main-color);
   border-radius: 5px;
 }
+.reviews-text {
+  padding: 10px;
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+}
