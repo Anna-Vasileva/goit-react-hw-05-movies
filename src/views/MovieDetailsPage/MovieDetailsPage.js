@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {
   useParams,
   useHistory,
+  useLocation,
   Route,
   useRouteMatch,
   NavLink,
@@ -17,6 +18,7 @@ const MovieDetailsPage = () => {
   const { url, path } = useRouteMatch();
   const { movieId } = useParams();
   const history = useHistory();
+  const location = useLocation();
   const [film, setFilm] = useState([]);
   const defaultImage = "https://i.postimg.cc/VNTY47h0/image.jpg";
 
@@ -28,17 +30,15 @@ const MovieDetailsPage = () => {
 
   const { poster_path, title, overview, genres, vote_average } = film;
   const genresName = genres?.map((el) => el.name).join();
+
+  const onGoBack = () => {
+    history.push(location?.state?.from ?? "/");
+  };
   //   console.log(url);
   return (
     <>
       <section className={s.section}>
-        <button
-          type="button"
-          className={s.btn}
-          onClick={() => {
-            history.goBack();
-          }}
-        >
+        <button type="button" className={s.btn} onClick={onGoBack}>
           Go back
         </button>
         <div className={s.wrapper}>
@@ -69,12 +69,24 @@ const MovieDetailsPage = () => {
         <h4>Additional information</h4>
         <ul className={s["details-list"]}>
           <li className={s["details-item"]}>
-            <NavLink to={`${url}/cast`} className={s["details-title"]}>
+            <NavLink
+              to={{
+                pathname: `${url}/cast`,
+                state: location?.state?.from,
+              }}
+              className={s["details-title"]}
+            >
               Cast
             </NavLink>
           </li>
           <li className={s["details-item"]}>
-            <NavLink to={`${url}/reviews`} className={s["details-title"]}>
+            <NavLink
+              to={{
+                pathname: `${url}/reviews`,
+                state: location?.state?.from,
+              }}
+              className={s["details-title"]}
+            >
               Reviews
             </NavLink>
           </li>
