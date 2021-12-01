@@ -2,12 +2,10 @@ import React from "react";
 import { Link, useRouteMatch, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getTrendingFilms } from "../../services/ServiceAPI";
-// import MovieDetailsPage from "../MovieDetailsPage";
 import s from "./HomePage.module.css";
 
 const HomePage = () => {
   const [films, setFilms] = useState([]);
-  //   const defaultImage = "https://i.postimg.cc/VNTY47h0/image.jpg";
   const { url } = useRouteMatch();
   const location = useLocation();
 
@@ -31,14 +29,6 @@ const HomePage = () => {
                     state: { from: location },
                   }}
                 >
-                  {/* <img
-                    src={
-                      poster_path
-                        ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-                        : defaultImage
-                    }
-                    alt={title}
-                  /> */}
                   <p className={s["home-title"]}>{title}</p>
                 </Link>
               </li>

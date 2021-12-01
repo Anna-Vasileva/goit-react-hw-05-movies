@@ -9,7 +9,6 @@ const Cast = ({ movieId }) => {
   const [cast, setCast] = useState(null);
 
   useEffect(() => {
-    console.log("useEffect Cast");
     getFilmsCredits(movieId)
       .then(({ data }) => {
         if (data.cast.length === 0) {
@@ -22,7 +21,6 @@ const Cast = ({ movieId }) => {
       });
   }, [movieId]);
 
-  console.log(cast);
   return (
     <>
       {cast && (

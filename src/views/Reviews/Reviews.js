@@ -20,11 +20,7 @@ const Reviews = ({ movieId }) => {
 
   return (
     <>
-      {reviews.length === 0 ? (
-        <p className={s["reviews-text"]}>
-          We do not have any reviews for this movie.
-        </p>
-      ) : (
+      {reviews.length > 0 ? (
         <ul className={s["reviews-list"]}>
           {reviews.map(({ author, content, id }) => (
             <li key={id} className={s["reviews-item"]}>
@@ -33,6 +29,10 @@ const Reviews = ({ movieId }) => {
             </li>
           ))}
         </ul>
+      ) : (
+        <p className={s["reviews-text"]}>
+          We do not have any reviews for this movie.
+        </p>
       )}
     </>
   );

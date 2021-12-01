@@ -1,0 +1,9 @@
+.title {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+}
+.not-found {
+  padding: 0 15px;
+}

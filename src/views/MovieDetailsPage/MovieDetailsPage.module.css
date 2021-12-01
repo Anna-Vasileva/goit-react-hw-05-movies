@@ -54,3 +54,13 @@
 .details-title:hover {
   color: var(--main-color);
 }
+
+.details-title--current::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-right: 3px;
+  background-color: var(--main-color);
+}

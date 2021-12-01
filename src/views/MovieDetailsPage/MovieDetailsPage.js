@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import {
   useParams,
   useHistory,
@@ -8,12 +8,15 @@ import {
   NavLink,
   Switch,
 } from "react-router-dom";
-// import PropTypes from "prop-types";
 import { getFilmsById } from "../../services/ServiceAPI";
-import Cast from "../Cast";
-import Reviews from "../Reviews";
+// import Cast from "../Cast";
+// import Reviews from "../Reviews";
 import s from "./MovieDetailsPage.module.css";
 
+const Cast = lazy(() => import("../Cast" /* webpackChunkName: "Cast" */));
+const Reviews = lazy(() =>
+  import("../Reviews" /* webpackChunkName: "Reviews" */)
+);
 const MovieDetailsPage = () => {
   const { url, path } = useRouteMatch();
   const { movieId } = useParams();
@@ -34,7 +37,7 @@ const MovieDetailsPage = () => {
   const onGoBack = () => {
     history.push(location?.state?.from ?? "/");
   };
-  //   console.log(url);
+
   return (
     <>
       <section className={s.section}>
@@ -75,6 +78,7 @@ const MovieDetailsPage = () => {
                 state: location?.state?.from,
               }}
               className={s["details-title"]}
+              activeClassName={s["details-title--current"]}
             >
               Cast
             </NavLink>
@@ -86,19 +90,22 @@ const MovieDetailsPage = () => {
                 state: location?.state?.from,
               }}
               className={s["details-title"]}
+              activeClassName={s["details-title--current"]}
             >
               Reviews
             </NavLink>
           </li>
         </ul>
-        <Switch>
-          <Route path={`${path}/cast`}>
-            <Cast movieId={movieId} />
-          </Route>
-          <Route path={`${path}/reviews`}>
-            <Reviews movieId={movieId} />
-          </Route>
-        </Switch>
+        <Suspense fallback={<div>spinner</div>}>
+          <Switch>
+            <Route path={`${path}/cast`}>
+              <Cast movieId={movieId} />
+            </Route>
+            <Route path={`${path}/reviews`}>
+              <Reviews movieId={movieId} />
+            </Route>
+          </Switch>
+        </Suspense>
       </section>
     </>
   );
