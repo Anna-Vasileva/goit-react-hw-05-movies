@@ -12,6 +12,7 @@ import { getFilmsById } from "../../services/ServiceAPI";
 // import Cast from "../Cast";
 // import Reviews from "../Reviews";
 import s from "./MovieDetailsPage.module.css";
+import Loader from "../../components/Loader";
 
 const Cast = lazy(() => import("../Cast" /* webpackChunkName: "Cast" */));
 const Reviews = lazy(() =>
@@ -96,7 +97,7 @@ const MovieDetailsPage = () => {
             </NavLink>
           </li>
         </ul>
-        <Suspense fallback={<div>spinner</div>}>
+        <Suspense fallback={<Loader />}>
           <Switch>
             <Route path={`${path}/cast`}>
               <Cast movieId={movieId} />

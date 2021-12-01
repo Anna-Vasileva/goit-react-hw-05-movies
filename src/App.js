@@ -6,6 +6,7 @@ import "./App.css";
 import NotFoundPage from "./components/NotFoundPage";
 // import MoviesPage from "./views/MoviesPage";
 import { Suspense, lazy } from "react";
+import Loader from "./components/Loader/Loader";
 
 const Navigation = lazy(() =>
   import("./components/Navigation" /* webpackChunkName: "Navigation" */)
@@ -23,7 +24,13 @@ const MoviesPage = lazy(() =>
 function App() {
   return (
     <>
-      <Suspense fallback={<div>spinner</div>}>
+      <Suspense
+        fallback={
+          <div>
+            <Loader />
+          </div>
+        }
+      >
         <Navigation />
         <Switch>
           <Route path="/" exact>
