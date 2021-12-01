@@ -80,7 +80,7 @@ const MovieDetailsPage = () => {
             <NavLink
               to={{
                 pathname: `${url}/cast`,
-                state: location?.state?.from,
+                state: { from: location?.state?.from },
               }}
               className={s["details-title"]}
               activeClassName={s["details-title--current"]}
@@ -92,7 +92,7 @@ const MovieDetailsPage = () => {
             <NavLink
               to={{
                 pathname: `${url}/reviews`,
-                state: location?.state?.from,
+                state: { from: location?.state?.from },
               }}
               className={s["details-title"]}
               activeClassName={s["details-title--current"]}
