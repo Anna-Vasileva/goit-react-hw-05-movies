@@ -3,6 +3,7 @@ import { Link, useRouteMatch, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getTrendingFilms } from "../../services/ServiceAPI";
 import s from "./HomePage.module.css";
+import myError from "../../components/Message/Message";
 
 const HomePage = () => {
   const [films, setFilms] = useState([]);
@@ -12,7 +13,9 @@ const HomePage = () => {
   useEffect(() => {
     getTrendingFilms()
       .then(({ data }) => setFilms(data.results))
-      .catch((error) => console.log("Ошибка:HomePage"));
+      .catch((error) =>
+        myError("Something went wrong. Please try again later.")
+      );
   }, []);
 
   return (

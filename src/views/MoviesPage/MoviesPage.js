@@ -3,6 +3,7 @@ import { getSearchFilms } from "../../services/ServiceAPI";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
 import SearchInput from "../../components/SearchInput";
 import s from "./MoviesPage.module.css";
+import myError from "../../components/Message";
 
 const MoviesPage = () => {
   const defaultImage = "https://i.postimg.cc/VNTY47h0/image.jpg";
@@ -17,14 +18,16 @@ const MoviesPage = () => {
     getSearchFilms(searchQuery)
       .then(({ data }) => {
         if (data.results.length === 0) {
-          console.log("MoviesPage:data.results.length === 0");
+          myError("No results found.");
+          //   console.log("MoviesPage:data.results.length === 0");
           setFilm([]);
         }
 
         setFilm(data.results);
       })
       .catch((error) => {
-        console.log("Ошибка:MoviesPage");
+        myError("Something went wrong. Please try again later.");
+        // console.log("Ошибка:MoviesPage");
       });
   }, [searchQuery]);
   const onChangeQuery = (query) => {

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { getFilmsCredits } from "../../services/ServiceAPI";
 import s from "./Cast.module.css";
+import myError from "../../components/Message/Message";
 
 const defaultImage = "https://i.postimg.cc/VNTY47h0/image.jpg";
 
@@ -12,12 +13,14 @@ const Cast = ({ movieId }) => {
     getFilmsCredits(movieId)
       .then(({ data }) => {
         if (data.cast.length === 0) {
-          console.log("ошибка:cast.length === 0");
+          myError("Cast is not available.");
+          // console.log("ошибка:cast.length === 0");
         }
         setCast(data.cast);
       })
       .catch(({ error }) => {
-        console.log("ошибка:Cast");
+        myError("Something went wrong. Please try again later.");
+        // console.log("ошибка:Cast");
       });
   }, [movieId]);
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getFilmsReviews } from "../../services/ServiceAPI";
 import PropTypes from "prop-types";
 import s from "./Reviews.module.css";
+import myError from "../../components/Message/Message";
 
 const Reviews = ({ movieId }) => {
   const [reviews, setReviews] = useState([]);
@@ -9,12 +10,14 @@ const Reviews = ({ movieId }) => {
     getFilmsReviews(movieId)
       .then(({ data }) => {
         if (data.results.length === 0) {
-          console.log("Ошибка: Reviews:results.results.length === 0");
+          myError("Reviews is not available.");
+          // console.log("Ошибка: Reviews:results.results.length === 0");
         }
         setReviews(data.results);
       })
       .catch((error) => {
-        console.log("ошибка:Reviews");
+        myError("Something went wrong. Please try again later.");
+        // console.log("ошибка:Reviews");
       });
   }, [movieId]);
 

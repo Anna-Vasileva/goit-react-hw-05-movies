@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import s from "./SearchInput.module.css";
+import myError from "../../components/Message";
 
 const SearchInput = ({ onSubmit }) => {
   const [nameMovie, setNameMovie] = useState("");
@@ -11,6 +12,7 @@ const SearchInput = ({ onSubmit }) => {
   const onSearchSubmit = (e) => {
     e.preventDefault();
     if (nameMovie.trim() === "") {
+      myError("Please enter your correctly query!");
       console.log("Please enter your correctly query!");
       return;
     }

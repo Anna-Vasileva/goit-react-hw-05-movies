@@ -13,6 +13,7 @@ import { getFilmsById } from "../../services/ServiceAPI";
 // import Reviews from "../Reviews";
 import s from "./MovieDetailsPage.module.css";
 import Loader from "../../components/Loader";
+import myError from "../../components/Message";
 
 const Cast = lazy(() => import("../Cast" /* webpackChunkName: "Cast" */));
 const Reviews = lazy(() =>
@@ -29,7 +30,10 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     getFilmsById(movieId)
       .then(({ data }) => setFilm(data))
-      .catch((error) => console.log("Ошибка: MovieDetailsPage"));
+      .catch((error) => {
+        myError("Something went wrong. Please try again later.");
+        // console.log("Ошибка: MovieDetailsPage");
+      });
   }, [movieId]);
 
   const { poster_path, title, overview, genres, vote_average } = film;
